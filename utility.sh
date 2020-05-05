@@ -1,4 +1,6 @@
 #!/bin/bash
+port="/dev/ttyUSB0"
+stty -F $port 9600
 
 clear
 echo "FizhLeds"
@@ -26,31 +28,18 @@ do
 		exit 0
 	elif [ $i -eq 1 ]
 	then
-		bash /home/gudenalek/sketchbook/leds.sh r0g33b85
+		echo -ne r0g33b85 > $port 
 		lookandfeeltool -a org.kde.breezedark.desktop
 	elif [ $i -eq 2 ]
 	then
-		bash /home/gudenalek/sketchbook/leds.sh r0g255b100
+		echo -ne r0g255b100 > $port 
 		lookandfeeltool -a org.kde.breeze.desktop
-	elif [ $i -eq 3 ]
-	then
-		bash /home/gudenalek/sketchbook/leds.sh r255g0b255
-		lookandfeeltool -a Sweet
-	elif [ $i -eq 4 ]
-	then
-		bash /home/gudenalek/sketchbook/leds.sh r255g0b0
-		lookandfeeltool -a Soft_Glass
-		latte-dock --replace&
-	elif [ $i -eq 5 ]
-	then
-		bash /home/gudenalek/sketchbook/leds.sh r0g100b255
-		lookandfeeltool -a com.github.vinceliuice.McMojave
 	else
-		bash /home/gudenalek/sketchbook/leds.sh $i
+		echo -ne $i > $port 
 		clear
 		echo "Enter color brightness"
 		read i
-		bash /home/gudenalek/sketchbook/leds.sh $i
+		echo -ne $i > $port 
 		clear
 	fi
 done

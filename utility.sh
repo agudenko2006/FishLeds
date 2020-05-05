@@ -18,9 +18,6 @@ do
 	echo "a - all"
 	echo "1 - dark mode"
 	echo "2 - light mode"
-	echo "3 - sweet theme"
-	echo "4 - SoftGlass theme"
-	echo "5 - MacOS theme"
 	echo "0 - exit"
 	read i
 	if [ $i -eq 0 ]

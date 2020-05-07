@@ -9,7 +9,7 @@
 9. Check "Run in terminal"
 10. Save configuration
 11. Add some shortcuts to KDE
-shortcut command is script.sh width one option
+shortcut command is script.sh width one of options
 
 OPTIONS:
 	WHITE - a255 (255 is brightness)

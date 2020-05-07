@@ -1,5 +1,5 @@
-#define red 5
-#define green 3
+#define red 3
+#define green 5
 #define blue 6
 #define button 4
 
@@ -13,6 +13,7 @@ void setup(){
 	pinMode(blue,OUTPUT);
 	pinMode(button,INPUT_PULLUP);
 	Serial.begin(9600);
+	Serial.setTimeout(50);
 }
 void loop(){
 	if (digitalRead(button)==0){

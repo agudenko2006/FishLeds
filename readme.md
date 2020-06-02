@@ -1,3 +1,4 @@
+#Install
 1. Install arduino IDE
 2. Clone this project
 3. Open sketch.ino
@@ -11,11 +12,11 @@
 11. Add some shortcuts to KDE
 shortcut command is script.sh width one of options
 
-OPTIONS:
-	WHITE - a255 (255 is brightness)
-	RED - r255
-	GREEN - g255
-	BLUE - b255
-	OFF - a0
-	animate - c0
+#OPTIONS:
+* WHITE --- a255 (255 is brightness)
+* RED --- r255
+* GREEN --- g255
+* BLUE --- b255
+* OFF --- a0
+* animate --- c0
 	

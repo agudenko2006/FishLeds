@@ -13,7 +13,7 @@
 shortcut command is script.sh width one of options
 
 #OPTIONS:
-* WHITE --- a255 (255 is brightness)
+*WHITE --- a255 (255 is brightness)
 * RED --- r255
 * GREEN --- g255
 * BLUE --- b255

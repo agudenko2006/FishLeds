@@ -1,4 +1,4 @@
-Install
+#Install
 1. Install arduino IDE
 2. Clone this project
 3. Open sketch.ino

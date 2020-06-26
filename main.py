@@ -90,10 +90,17 @@ if sys.argv[1] == 'on':
 	clear()
 elif sys.argv[1] == 'off':
 	ser.write(b'a0')
+elif sys.argv[1] == 'rgb':
+	ser.write(b"r")
+	ser.write(str(sys.argv[2]).encode('ascii'))
+	ser.write(b"g")
+	ser.write(str(sys.argv[3]).encode('ascii'))
+	ser.write(b"b")
+	ser.write(str(sys.argv[4]).encode('ascii'))
 elif sys.argv[1] == 'yeelight':
 	lamp.toggle()
 elif sys.argv[1] == '--help':
-	print(Fore.WHITE, 'on - leds on\noff - leds off\nyeelight - toggle main lamp\nled_menu - menu')
+	print(Fore.WHITE, 'on - leds on\noff - leds off\nyeelight - toggle main lamp\nled_menu - menu\nrgb (0 - 255) (0 - 255) (0 - 255) - set leds color to...')
 elif sys.argv[1] == 'led_menu':
 	print(Fore.GREEN, 'Modes:')
 	print(Fore.BLUE, ' huewheel')

@@ -98,9 +98,13 @@ elif sys.argv[1] == 'rgb':
 	ser.write(b"b")
 	ser.write(str(sys.argv[4]).encode('ascii'))
 elif sys.argv[1] == 'yeelight':
-	lamp.toggle()
+	if sys.argv[2] == 'toggle':
+		lamp.toggle()
+	else:
+		lamp.set_color_temp(int(sys.argv[2]))
 elif sys.argv[1] == '--help':
-	print(Fore.WHITE, 'on - leds on\noff - leds off\nyeelight - toggle main lamp\nled_menu - menu\nrgb (0 - 255) (0 - 255) (0 - 255) - set leds color to...')
+	print(Fore.WHITE, 'on - leds on\noff - leds off\nled_menu - menu')
+	print(Fore.WHITE, 'rgb (0 - 255) (0 - 255) (0 - 255) - set leds color to...\nyeelight toggle - toggle main lamp\nyeelight (value) - change color temperature')
 elif sys.argv[1] == 'led_menu':
 	print(Fore.GREEN, 'Modes:')
 	print(Fore.BLUE, ' huewheel')

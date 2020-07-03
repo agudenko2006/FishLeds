@@ -1,4 +1,5 @@
 import serial
+import psutil
 from random import random
 import sys
 from yeelight import Bulb
@@ -85,6 +86,15 @@ def linuxColor():
 	for i in range(255):
 		ser.write(b"r")
 		ser.write(str(i).encode('ascii'))
+def cpuLoad():
+	while True:
+		load=int(round(psutil.cpu_percent()))
+		load=load*2
+		sleep(0.5)
+		ser.write(b"r")
+		ser.write(str(load).encode('ascii'))
+		ser.write(b"g")
+		ser.write(str(201-load).encode('ascii'))
 
 if sys.argv[1] == 'on':
 	clear()
@@ -108,6 +118,7 @@ elif sys.argv[1] == '--help':
 elif sys.argv[1] == 'led_menu':
 	print(Fore.GREEN, 'Modes:')
 	print(Fore.BLUE, ' huewheel')
+	print(Fore.CYAN, ' cpu (CPU load)')
 	print(Fore.YELLOW, ' fire')
 	print(Fore.YELLOW, ' linux (yellow)')
 	print(Fore.RED, ' new year')
@@ -125,5 +136,7 @@ elif sys.argv[1] == 'led_menu':
 		newYear()
 	elif startFX == 'linux':
 		linuxColor()
+	elif startFX == 'cpu':
+		cpuLoad()
 	elif startFX == 'off':
 		ser.write(b'a0')

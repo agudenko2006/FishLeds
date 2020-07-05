@@ -1,6 +1,7 @@
 ledPort='/dev/ttyUSB0'
 lampIP='192.168.0.102'
 useConsole=False
+maxBrightness=255
 
 #------------------------------------------#
 
@@ -21,47 +22,49 @@ sleep(0.3)
 
 def huewheel():
 	i = 0
-	for i in range(255):
+	for i in range(maxBrightness):
 		ser.write(b"g")
 		ser.write(str(i).encode('ascii'))
 		sleep(time)
-	for i in range(255):
+	for i in range(maxBrightness):
 		ser.write(b"b")
 		ser.write(str(i).encode('ascii'))
 		sleep(time)
-	for i in range(255):
+	for i in range(maxBrightness):
 		ser.write(b"g")
-		ser.write(str(255-i-1).encode('ascii'))
+		ser.write(str(maxBrightness-i-1).encode('ascii'))
 		sleep(time)
 	while True:
-		for i in range(255):
+		for i in range(maxBrightness):
 			ser.write(b"g")
 			ser.write(str(i).encode('ascii'))
 			sleep(time)
-		for i in range(255):
+		for i in range(maxBrightness):
 			ser.write(b"b")
-			ser.write(str(255-i-1).encode('ascii'))
+			ser.write(str(maxBrightness-i-1).encode('ascii'))
 			sleep(time)
-		for i in range(255):
+		for i in range(maxBrightness):
 			ser.write(b"r")
 			ser.write(str(i).encode('ascii'))
 			sleep(time)
-		for i in range(255):
+		for i in range(maxBrightness):
 			ser.write(b"g")
-			ser.write(str(255-i-1).encode('ascii'))
+			ser.write(str(maxBrightness-i-1).encode('ascii'))
 			sleep(time)
-		for i in range(255):
+		for i in range(maxBrightness):
 			ser.write(b"b")
 			ser.write(str(i).encode('ascii'))
 			sleep(time)
-		for i in range(255):
+		for i in range(maxBrightness):
 			ser.write(b"r")
-			ser.write(str(255-i-1).encode('ascii'))
+			ser.write(str(maxBrightness-i-1).encode('ascii'))
 			sleep(time)
 def clear():
-	ser.write(b'a255')
+	ser.write(b'a')
+	ser.write(str(maxBrightness).encode('ascii'))
 def fire(k):
-	ser.write(b"r255")
+	ser.write(b"r")
+	ser.write(str(maxBrightness).encode('ascii'))
 	while True:
 		ser.write(b"g")
 		ser.write(str(int(random()*30+1)).encode('ascii'))
@@ -70,26 +73,33 @@ def fire(k):
 def newYear():
 	ntime=0.2
 	while True:
-		ser.write(b"r255")
+		ser.write(b"r")
+		ser.write(str(maxBrightness).encode('ascii'))
 		sleep(ntime)
-		ser.write(b"r0g255")
+		ser.write(b"r0g")
+		ser.write(str(maxBrightness).encode('ascii'))
 		sleep(ntime)
-		ser.write(b"g0b255")
+		ser.write(b"g0b")
+		ser.write(str(maxBrightness).encode('ascii'))
 		sleep(ntime)
-		ser.write(b"r255")
+		ser.write(b"r")
+		ser.write(str(maxBrightness).encode('ascii'))
 		sleep(ntime)
-		ser.write(b"r0g255")
+		ser.write(b"r0g")
+		ser.write(str(maxBrightness).encode('ascii'))
 		sleep(ntime)
-		ser.write(b"b0r255")
+		ser.write(b"b0r")
+		ser.write(str(maxBrightness).encode('ascii'))
 		sleep(ntime)
-		ser.write(b"b255")
+		ser.write(b"b")
+		ser.write(str(maxBrightness).encode('ascii'))
 		sleep(ntime)
 def linuxColor():
 	ser.write(b"a0")
-	for i in range(255):
+	for i in range(maxBrightness):
 		ser.write(b"g")
 		ser.write(str(i).encode('ascii'))
-	for i in range(255):
+	for i in range(maxBrightness):
 		ser.write(b"r")
 		ser.write(str(i).encode('ascii'))
 def cpuLoad():

@@ -1,6 +1,6 @@
 ledPort='/dev/ttyUSB0'
 lampIP='192.168.0.102'
-useConsole=False
+useConsole=True
 maxBrightness=255
 
 #------------------------------------------#
@@ -9,6 +9,7 @@ import serial
 import psutil
 from random import random
 import sys
+import os
 from yeelight import Bulb
 lamp = Bulb(lampIP)
 from time import sleep
@@ -102,6 +103,8 @@ def linuxColor():
 	for i in range(maxBrightness):
 		ser.write(b"r")
 		ser.write(str(i).encode('ascii'))
+def LRlampToggle(Lamp, state):
+	print("This is not for you(")
 def cpuLoad():
 	while True:
 		load=int(round(psutil.cpu_percent()))
@@ -124,6 +127,22 @@ if useConsole == True:
 		ser.write(str(sys.argv[3]).encode('ascii'))
 		ser.write(b"b")
 		ser.write(str(sys.argv[4]).encode('ascii'))
+	elif sys.argv[1] == 'onL':
+		LRlampToggle('L', 'on')
+	elif sys.argv[1] == 'offL':
+		LRlampToggle('L', 'off')
+	elif sys.argv[1] == 'onR':
+		LRlampToggle('R', 'on')
+	elif sys.argv[1] == 'offR':
+		LRlampToggle('R', 'off')
+	elif sys.argv[1] == 'onAll':
+		LRlampToggle('R', 'on')
+		LRlampToggle('L', 'on')
+		lamp.turn_on()
+	elif sys.argv[1] == 'offAll':
+		LRlampToggle('R', 'off')
+		LRlampToggle('L', 'off')
+		lamp.turn_off()
 	elif sys.argv[1] == 'yeelight':
 		if sys.argv[2] == 'toggle':
 			lamp.toggle()

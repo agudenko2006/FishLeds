@@ -68,42 +68,7 @@ void loop(){
 			case 'b' : analogWrite(blue,val); break;
 			case 'a' : analogWrite(red,val);analogWrite(green,val);analogWrite(blue,val); break;
 			case 's' : time=val; break;
-			default :
-				while (Serial.available() <= 0){
-					for (int i = 0; i < 255; i++) {
-						analogWrite(green,i);
-						delay(time);
-					}
-					for (int i = 0; i < 255; i++) {
-						analogWrite(red,i);
-						delay(time);
-					}
-					for (int i = 255; i > -1; i--) {
-						analogWrite(green,i);
-						delay(time);
-					}
-					for (int i = 0; i < 255; i++) {
-						analogWrite(blue,i);
-						delay(time);
-					}
-					for (int i = 255; i > -1; i--) {
-						analogWrite(red,i);
-						delay(time);
-					}
-					for (int i = 0; i < 255; i++) {
-						analogWrite(green,i);
-						delay(time);
-					}
-					for (int i = 255; i > -1; i--) {
-						analogWrite(green,i);
-						delay(time);
-					}
-					for (int i = 255; i > -1; i--) {
-						analogWrite(blue,i);
-						delay(time);
-					}
-				}
-			break;
+			default : analogWrite(red,255);analogWrite(green,255);analogWrite(blue,255); break;
 		}
 	}
 }

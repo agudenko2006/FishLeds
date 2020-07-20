@@ -1,7 +1,9 @@
 ledPort='/dev/ttyUSB0'
 lampIP='192.168.0.102'
-useConsole=False
+useConsole=True
 maxBrightness=255
+def defaultMode():
+	huewheel()
 #------------------------------------------#
 
 import serial
@@ -125,7 +127,7 @@ def menuAndConsoleArguments():
 	os.system("clear")
 	if useConsole == True:
 		if sys.argv[1] == 'on':
-			clear()
+			defaultMode()
 		elif sys.argv[1] == 'off':
 			ser.write(b'a0')
 		elif sys.argv[1] == 'rgb':
@@ -166,24 +168,64 @@ def menuAndConsoleArguments():
 			print(Fore.YELLOW, ' fire')
 			print(Fore.YELLOW, ' linux (yellow)')
 			print(Fore.RED, ' new year')
+			print(Fore.RED, ' r',Fore.GREEN,'g',Fore.BLUE,'b')
 			print(Fore.WHITE, ' clear')
 			print(Fore.BLACK, Back.RED, 'off')
 			print(Fore.RESET, Back.RESET,'select one: ')
 			startFX=input()
 			if startFX == 'huewheel':
-				huewheel()
+				try:
+					huewheel()
+				except KeyboardInterrupt:
+					pass
+				menuAndConsoleArguments()
 			elif startFX == 'clear':
 				clear()
 			elif startFX == 'fire':
-				fire(2)
+				try:
+					fire(2)
+				except KeyboardInterrupt:
+					pass
+				menuAndConsoleArguments()
 			elif startFX == 'new year':
-				newYear()
+				try:
+					newYear()
+				except KeyboardInterrupt:
+					pass
+				menuAndConsoleArguments()
 			elif startFX == 'linux':
 				linuxColor()
+			elif startFX == 'yeelight toggle':
+				lamp.toggle()
+			elif startFX == 'yeelight color':
+				lamp.set_color_temp(int(input()))
 			elif startFX == 'cpu':
-				cpuLoad()
+				try:
+					cpuLoad()
+				except KeyboardInterrupt:
+					pass
+				menuAndConsoleArguments()
 			elif startFX == 'off':
 				ser.write(b'a0')
+			elif startFX == 'rgb':
+				print('red: ')
+				color=input()
+				ser.write(b"r")
+				ser.write(str(color).encode('ascii'))
+				print('green: ')
+				color=input()
+				ser.write(b"g")
+				ser.write(str(color).encode('ascii'))
+				print('blue: ')
+				color=input()
+				ser.write(b"b")
+				ser.write(str(color).encode('ascii'))
+				try:
+					while True:
+						sleep(1)
+				except KeyboardInterrupt:
+					pass
+				menuAndConsoleArguments()
 	else:
 		print(Fore.GREEN, 'Modes:')
 		print(Fore.BLUE, ' huewheel')
@@ -194,6 +236,7 @@ def menuAndConsoleArguments():
 		print(Fore.YELLOW, ' yeelight color')
 		print(Fore.RED, ' new year')
 		print(Fore.WHITE, ' clear')
+		print(Fore.RED, ' r',Fore.GREEN,'g',Fore.BLUE,'b')
 		print(Fore.BLACK, Back.RED, 'off')
 		print(Fore.RESET, Back.RESET,'select one: ')
 		startFX=input()
@@ -231,4 +274,23 @@ def menuAndConsoleArguments():
 			menuAndConsoleArguments()
 		elif startFX == 'off':
 			ser.write(b'a0')
+		elif startFX == 'rgb':
+			print('red: ')
+			color=input()
+			ser.write(b"r")
+			ser.write(str(color).encode('ascii'))
+			print('green: ')
+			color=input()
+			ser.write(b"g")
+			ser.write(str(color).encode('ascii'))
+			print('blue: ')
+			color=input()
+			ser.write(b"b")
+			ser.write(str(color).encode('ascii'))
+			try:
+				while True:
+					sleep(1)
+			except KeyboardInterrupt:
+				pass
+			menuAndConsoleArguments()
 menuAndConsoleArguments()

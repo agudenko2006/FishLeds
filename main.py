@@ -123,8 +123,6 @@ def cpuLoad():
 		ser.write(str(201-load).encode('ascii'))
 
 def menuAndConsoleArguments():
-	ser.write(b"a0")
-	os.system("clear")
 	if useConsole == True:
 		if sys.argv[1] == 'on':
 			defaultMode()
@@ -137,6 +135,15 @@ def menuAndConsoleArguments():
 			ser.write(str(sys.argv[3]).encode('ascii'))
 			ser.write(b"b")
 			ser.write(str(sys.argv[4]).encode('ascii'))
+		elif sys.argv[1] == 'r':
+			ser.write(b"r")
+			ser.write(str(sys.argv[2]).encode('ascii'))
+		elif sys.argv[1] == 'g':
+			ser.write(b"g")
+			ser.write(str(sys.argv[2]).encode('ascii'))
+		elif sys.argv[1] == 'b':
+			ser.write(b"b")
+			ser.write(str(sys.argv[2]).encode('ascii'))
 		elif sys.argv[1] == 'onL':
 			LRlampToggle('L', 'on')
 		elif sys.argv[1] == 'offL':
@@ -162,135 +169,76 @@ def menuAndConsoleArguments():
 			print(Fore.WHITE, 'on - leds on\noff - leds off\nled_menu - menu')
 			print(Fore.WHITE, 'rgb (0 - 255) (0 - 255) (0 - 255) - set leds color to...\nyeelight toggle - toggle main lamp\nyeelight (value) - change color temperature')
 		elif sys.argv[1] == 'led_menu':
-			print(Fore.GREEN, 'Modes:')
-			print(Fore.BLUE, ' huewheel')
-			print(Fore.CYAN, ' cpu (CPU load)')
-			print(Fore.YELLOW, ' fire')
-			print(Fore.YELLOW, ' linux (yellow)')
-			print(Fore.RED, ' new year')
-			print(Fore.RED, ' r',Fore.GREEN,'g',Fore.BLUE,'b')
-			print(Fore.WHITE, ' clear')
-			print(Fore.BLACK, Back.RED, 'off')
-			print(Fore.RESET, Back.RESET,'select one: ')
-			startFX=input()
-			if startFX == 'huewheel':
-				try:
-					huewheel()
-				except KeyboardInterrupt:
-					pass
-				menuAndConsoleArguments()
-			elif startFX == 'clear':
-				clear()
-			elif startFX == 'fire':
-				try:
-					fire(2)
-				except KeyboardInterrupt:
-					pass
-				menuAndConsoleArguments()
-			elif startFX == 'new year':
-				try:
-					newYear()
-				except KeyboardInterrupt:
-					pass
-				menuAndConsoleArguments()
-			elif startFX == 'linux':
-				linuxColor()
-			elif startFX == 'yeelight toggle':
-				lamp.toggle()
-			elif startFX == 'yeelight color':
-				lamp.set_color_temp(int(input()))
-			elif startFX == 'cpu':
-				try:
-					cpuLoad()
-				except KeyboardInterrupt:
-					pass
-				menuAndConsoleArguments()
-			elif startFX == 'off':
-				ser.write(b'a0')
-			elif startFX == 'rgb':
-				print('red: ')
-				color=input()
-				ser.write(b"r")
-				ser.write(str(color).encode('ascii'))
-				print('green: ')
-				color=input()
-				ser.write(b"g")
-				ser.write(str(color).encode('ascii'))
-				print('blue: ')
-				color=input()
-				ser.write(b"b")
-				ser.write(str(color).encode('ascii'))
-				try:
-					while True:
-						sleep(1)
-				except KeyboardInterrupt:
-					pass
-				menuAndConsoleArguments()
+			menu()
 	else:
-		print(Fore.GREEN, 'Modes:')
-		print(Fore.BLUE, ' huewheel')
-		print(Fore.CYAN, ' cpu (CPU load)')
-		print(Fore.YELLOW, ' fire')
-		print(Fore.YELLOW, ' linux (yellow)')
-		print(Fore.YELLOW, ' yeelight toggle')
-		print(Fore.YELLOW, ' yeelight color')
-		print(Fore.RED, ' new year')
-		print(Fore.WHITE, ' clear')
-		print(Fore.RED, ' r',Fore.GREEN,'g',Fore.BLUE,'b')
-		print(Fore.BLACK, Back.RED, 'off')
-		print(Fore.RESET, Back.RESET,'select one: ')
-		startFX=input()
-		if startFX == 'huewheel':
-			try:
-				huewheel()
-			except KeyboardInterrupt:
-				pass
-			menuAndConsoleArguments()
-		elif startFX == 'clear':
-			clear()
-		elif startFX == 'fire':
-			try:
-				fire(2)
-			except KeyboardInterrupt:
-				pass
-			menuAndConsoleArguments()
-		elif startFX == 'new year':
-			try:
-				newYear()
-			except KeyboardInterrupt:
-				pass
-			menuAndConsoleArguments()
-		elif startFX == 'linux':
-			linuxColor()
-		elif startFX == 'yeelight toggle':
-			lamp.toggle()
-		elif startFX == 'yeelight color':
-			lamp.set_color_temp(int(input()))
-		elif startFX == 'cpu':
-			try:
-				cpuLoad()
-			except KeyboardInterrupt:
-				pass
-			menuAndConsoleArguments()
-		elif startFX == 'off':
-			ser.write(b'a0')
-		elif startFX == 'rgb':
-			print('red: ')
-			color=input()
-			ser.write(b"r")
-			ser.write(str(color).encode('ascii'))
-			print('green: ')
-			color=input()
-			ser.write(b"g")
-			ser.write(str(color).encode('ascii'))
-			print('blue: ')
-			color=input()
-			ser.write(b"b")
-			ser.write(str(color).encode('ascii'))
-			try:
-				while True:
-					sleep(1)
-			except KeyboardInterrupt:
-				pass
-			menuAndConsoleArguments()
+		menu()
+		menuAndConsoleArguments()
+def menu():
+	ser.write(b"a0")
+	os.system("clear")
+	print(Fore.GREEN, 'Modes:')
+	print(Fore.BLUE, ' huewheel')
+	print(Fore.CYAN, ' cpu (CPU load)')
+	print(Fore.YELLOW, ' fire')
+	print(Fore.YELLOW, ' linux (yellow)')
+	print(Fore.YELLOW, ' yeelight toggle')
+	print(Fore.YELLOW, ' yeelight color')
+	print(Fore.RED, ' new year')
+	print(Fore.WHITE, ' clear')
+	print(Fore.RED, ' r',Fore.GREEN,'g',Fore.BLUE,'b')
+	print(Fore.BLACK, Back.RED, 'off')
+	print(Fore.RESET, Back.RESET,'select one: ')
+	startFX=input()
+	if startFX == 'huewheel':
+		try:
+			huewheel()
+		except KeyboardInterrupt:
+			pass
+		menuAndConsoleArguments()
+	elif startFX == 'clear':
+		clear()
+	elif startFX == 'fire':
+		try:
+			fire(2)
+		except KeyboardInterrupt:
+			pass
+		menuAndConsoleArguments()
+	elif startFX == 'new year':
+		try:
+			newYear()
+		except KeyboardInterrupt:
+			pass
+		menuAndConsoleArguments()
+	elif startFX == 'linux':
+		linuxColor()
+	elif startFX == 'yeelight toggle':
+		lamp.toggle()
+	elif startFX == 'yeelight color':
+		lamp.set_color_temp(int(input()))
+	elif startFX == 'cpu':
+		try:
+			cpuLoad()
+		except KeyboardInterrupt:
+			pass
+		menuAndConsoleArguments()
+	elif startFX == 'off':
+		ser.write(b'a0')
+	elif startFX == 'rgb':
+		print('red: ')
+		color=input()
+		ser.write(b"r")
+		ser.write(str(color).encode('ascii'))
+		print('green: ')
+		color=input()
+		ser.write(b"g")
+		ser.write(str(color).encode('ascii'))
+		print('blue: ')
+		color=input()
+		ser.write(b"b")
+		ser.write(str(color).encode('ascii'))
+		try:
+			while True:
+				sleep(1)
+		except KeyboardInterrupt:
+			pass
 menuAndConsoleArguments()
